@@ -40,8 +40,10 @@
 		"views": {
 			"quackdebug": [
 				{
+					"type": "webview",
 					"id": "quackdebug-sidebar",
-					"name": "Quack Debug Sidebar"
+					"name": "Sidebar",
+					"icon": "images/icon.png"
 				}
 			]
 		}
@@ -66,6 +68,8 @@
 		"@types/mocha": "^8.2.2",
 		"@types/node": "14.x",
 		"@types/polka": "^0.5.3",
+		"@types/react": "^18.3.3",
+		"@types/react-dom": "^18.3.0",
 		"@types/vscode": "^1.90.0",
 		"@typescript-eslint/eslint-plugin": "^4.26.0",
 		"@typescript-eslint/parser": "^4.26.0",
@@ -86,6 +90,8 @@
 		"webpack-cli": "^4.7.0"
 	},
 	"dependencies": {
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
 		"vscode": "*"
 	}
 }

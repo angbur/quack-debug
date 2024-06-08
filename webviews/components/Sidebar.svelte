@@ -1,18 +1,43 @@
-<script lang="ts">
+<script>
   import { onMount } from "svelte";
 
+  let message = "";
+
+  // Function to handle sending the message to the extension
+  function sendMessage() {
+    const messageData = { type: "onFetchText" };
+    vscode.postMessage(messageData);
+  }
+
+  // Function to handle receiving messages from the extension
+  window.addEventListener("message", (event) => {
+    let message = event.data;
+    if (message && message.type === "onSelectedText") {
+      message = message.value;
+    }
+  });
+
+  // Function to handle resizing the webview
+  function handleResize() {
+    vscode.postMessage({ type: "resize", content: document.body.scrollHeight });
+  }
+
+  // Initialize the webview
   onMount(() => {
-    // Listen for messages from the extension
-    window.addEventListener("message", (event) => {
-      const message = event.data;
-      switch (message.type) {
-        case "onSomething": {
-          // code here...
-          break;
-        }
-      }
-    });
+    handleResize();
+  });
+
+  // Cleanup
+  onDestroy(() => {
+    window.removeEventListener("resize", handleResize);
   });
 </script>
 
-<h1>Sidebar Panel</h1>
+<div>
+  <input type="text" bind:value={message} placeholder="Type your message..." />
+  <button on:click={sendMessage}>Send</button>
+</div>
+
+<style>
+  /* Add your CSS styles here */
+</style>

@@ -7,10 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const sidebarProvider = new SidebarProvider(context.extensionUri);
 	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider(
-			"quackdebug-sidebar",
-			sidebarProvider
-		)
+		vscode.window.registerWebviewViewProvider("quackdebug-sidebar", sidebarProvider)
 	);
 
 	context.subscriptions.push(vscode.commands.registerCommand('quackdebug.helloWorld', () => {
@@ -18,3 +15,5 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 }  
+
+export function deactivate() { }
