@@ -3,6 +3,7 @@
 	"displayName": "QuackDebug",
 	"description": "",
 	"version": "0.0.1",
+	"icon": "./media/icon.png",
 	"private": true,
 	"license": "MIT",
 	"repository": {
@@ -19,14 +20,31 @@
 		"onCommand:quackdebug.helloWorld",
 		"onView:quackdebug-sidebar"
 	],
-	"main": "./dist/extension.js",
+	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "quackdebug.helloWorld",
 				"title": "Quack"
 			}
-		]
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "quackdebug",
+					"title": "Quack Debug",
+					"icon": "images/icon.png"
+				}
+			]
+		},
+		"views": {
+			"quackdebug": [
+				{
+					"id": "quackdebug-sidebar",
+					"name": "Quack Debug Sidebar"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",
@@ -48,7 +66,7 @@
 		"@types/mocha": "^8.2.2",
 		"@types/node": "14.x",
 		"@types/polka": "^0.5.3",
-		"@types/vscode": "^1.60.0",
+		"@types/vscode": "^1.90.0",
 		"@typescript-eslint/eslint-plugin": "^4.26.0",
 		"@typescript-eslint/parser": "^4.26.0",
 		"concurrently": "^6.2.1",

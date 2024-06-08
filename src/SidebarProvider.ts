@@ -1,5 +1,4 @@
 import * as vscode from "vscode";
-import { Uri } from "vscode";
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
     _view?: vscode.WebviewView;
@@ -13,7 +12,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         webviewView.webview.options = {
             // Allow scripts in the webview
             enableScripts: true,
-
             localResourceRoots: [this._extensionUri],
         };
 
@@ -51,17 +49,17 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
     private _getHtmlForWebview(webview: vscode.Webview) {
         const styleResetUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
+            vscode.Uri.parse(this._extensionUri + "media/reset.css")
         );
         const styleVSCodeUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
+            vscode.Uri.parse(this._extensionUri + "media/vscode.css")
         );
         const scriptUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "out/compiled/sidebar.js")
+            vscode.Uri.parse(this._extensionUri + "media/sidebar.js")
         );
-        const styleMainUri = "";
+        const styleMainUri = ""; // Update this line if you have a main style file
         // const styleMainUri = webview.asWebviewUri(
-        //     Uri.joinPath(this._extensionUri, "media", "sidebar.css")
+        //     vscode.Uri.joinPath(this._extensionUri, "media", "sidebar.css")
         // );
 
         // Use a nonce to only allow a specific script to be run.
@@ -75,8 +73,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 					Use a content security policy to only allow loading images from https or from our extension directory,
 					and only allow scripts that have a specific nonce.
         -->
-        <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource
-            }; script-src 'nonce-${nonce}';">
+        <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<link href="${styleResetUri}" rel="stylesheet">
 				<link href="${styleVSCodeUri}" rel="stylesheet">
